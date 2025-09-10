@@ -5,4 +5,5 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get upgrade -y
 
 # Command to run when the container starts
-CMD echo "Hello, World!"
+# same as CMD echo "Hello, World!"
+CMD ["echo", "Hello, World!"]
