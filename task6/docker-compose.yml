@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:13
+    container_name: softy-pinko-db
+    environment:
+      POSTGRES_DB: softy_pinko
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - softy-pinko-network
+
+  # Backend API instances (scaled)
+  api:
+    build: .
+    environment:
+      DB_HOST: db
+      DB_NAME: softy_pinko
+      DB_USER: postgres
+      DB_PASSWORD: password
+    depends_on:
+      - db
+    networks:
+      - softy-pinko-network
+    restart: unless-stopped
+    scale: 3
+
+  # Load Balancer with Nginx
+  proxy:
+    build: ./proxy
+    container_name: softy-pinko-proxy
+    ports:
+      - "9000:80"
+    depends_on:
+      - api
+    networks:
+      - softy-pinko-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  softy-pinko-network:
+    driver: bridge
