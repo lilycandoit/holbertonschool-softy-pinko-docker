@@ -8,8 +8,8 @@ RUN apt-get install -y python3 python3-pip
 # Fix for externally managed environments
 RUN rm /usr/lib/python*/EXTERNALLY-MANAGED
 
-# Install Flask and psycopg2 using pip3
-RUN pip3 install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org flask psycopg2-binary
+# Install Flask using pip3
+RUN pip3 install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org flask flask-cors
 
 # Set the working directory
 WORKDIR /app
