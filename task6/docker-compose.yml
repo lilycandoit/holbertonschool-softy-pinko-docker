@@ -1,0 +1,46 @@
+services:
+  back-end:
+    image: 'ubuntu:latest'
+    environment:
+      IS_DOCKER_CONTAINER: 1
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    # container_name: "docker-task6-back-end"
+    restart: always
+    ports:
+      - '5252'
+    networks:
+      - private
+  front-end:
+    image: 'nginx:1.29.1'
+    environment:
+      IS_DOCKER_CONTAINER: 1
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: 'docker-task6-front-end'
+    restart: always
+    networks:
+      - private
+    depends_on:
+      - back-end
+  proxy:
+    image: 'nginx:latest'
+    environment:
+      IS_DOCKER_CONTAINER: 1
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    container_name: 'docker-task6-proxy'
+    restart: always
+    ports:
+      - '80:80'
+    networks:
+      - private
+    depends_on:
+      - back-end
+      - front-end
+
+networks:
+  private:
