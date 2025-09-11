@@ -18,45 +18,28 @@ This project teaches Docker containerization through hands-on practice, progress
 - **Objective**: Containerize a Python Flask API
 - **Technologies**: Ubuntu, Python, Flask
 - **Files**: `task1/Dockerfile`, `task1/api.py`
-- **Run**: 
+- **Run**:
   ```bash
   docker build -t softy-pinko:task1 task1/
   docker run -p 5252:5252 softy-pinko:task1
   ```
 - **Test**: `curl http://localhost:5252/api/hello`
 
-### Task 2: Frontend Container
-- **Objective**: Serve static web content with Nginx
-- **Technologies**: Nginx, HTML, CSS, JavaScript
-- **Files**: `task2/Dockerfile`, `task2/index.html`, `task2/styles.css`, `task2/script.js`
-- **Run**: 
-  ```bash
-  docker build -t softy-pinko:task2 task2/
-  docker run -p 9000:80 softy-pinko:task2
-  ```
-- **Access**: http://localhost:9000
+### 🔧 Task 3: Dynamic Content with AJAX
+* Integrates the front-end and back-end.
+* Uses jQuery `$.ajax` to call the Flask API (`/api/hello`) and inject the result into the HTML.
+* First demonstration of dynamic client-server interaction.
 
-### Task 3: Multi-Container Setup
+### Task 4: Introduce Nginx Reverse Proxy
 - **Objective**: Connect frontend and backend containers
 - **Technologies**: Nginx reverse proxy, Docker networking
 - **Files**: `task3/Dockerfile`, `task3/nginx.conf`, `task3/run.sh`
 - **Run**: `cd task3 && ./run.sh`
 - **Test**: http://localhost:9000 and http://localhost:9000/api/hello
 
-### Task 4: Database Integration
-- **Objective**: Add PostgreSQL database container
-- **Technologies**: PostgreSQL, Flask with database integration
-- **Files**: `task4/Dockerfile`, `task4/api.py`, `task4/run.sh`
-- **Run**: `cd task4 && ./run.sh`
-- **Endpoints**: 
-  - http://localhost:9000/api/messages (GET/POST)
-  - http://localhost:9000/api/hello
-
 ### Task 5: Docker Compose
 - **Objective**: Manage multi-container application with Docker Compose
-- **Technologies**: Docker Compose, PostgreSQL, volume persistence
-- **Files**: `task5/docker-compose.yml`, `task5/README.md`
-- **Run**: 
+- **Run**:
   ```bash
   cd task5
   docker-compose up --build
@@ -67,12 +50,12 @@ This project teaches Docker containerization through hands-on practice, progress
 - **Objective**: Horizontal scaling with load balancer
 - **Technologies**: Nginx load balancer, multiple API instances
 - **Files**: `task6/docker-compose.yml`, `task6/proxy/nginx.conf`
-- **Run**: 
+- **Run**:
   ```bash
   cd task6
   docker-compose up --build --scale api=3
   ```
-- **Features**: 
+- **Features**:
   - 3 API instances behind load balancer
   - Health monitoring
   - Fault tolerance
@@ -101,7 +84,6 @@ By completing this project, you will understand:
 3. **Production Concepts**
    - Load balancing
    - Horizontal scaling
-   - Health checks
    - Infrastructure as Code with Docker Compose
 
 ## Author
